@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*- 
 import shutil
 import re
+import os
 import urllib2
 
-texto = open("Clasicos.xspf", "r")          #Name of vlc playlist
-regex = re.compile(r'(\/home.*)</location>')
+varText = raw_input("Introducir nombre lista vlc: ") 	#Name of vlc playlist
+
+texto = open(varText, "r")          
+regex = re.compile(r'(\/home.*)</location>')			#only works linux
 
 for line in texto:
 	link= regex.findall(line)
@@ -13,4 +16,4 @@ for line in texto:
 		text = urllib2.unquote(text)
 		text = str.replace(text, "&#39;", "'")
 		text = str.replace(text, "&amp;", "&")
-		shutil.copy(text, "/home/lauchalunar/besttest")  #Place to put music files
+		shutil.copy(text, os.path.dirname(os.path.realpath(__file__)))  #Place the files in the same directory of this file
